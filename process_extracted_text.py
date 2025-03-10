@@ -7,7 +7,7 @@ def clean_markdown_document(input_file, output_file):
     
     # Pattern 1: Remove [X] where X contains only alphanumeric characters
     # But keep those containing symbols like [\times] or [0, \pi / 4]
-    pattern1 = r'\[([a-zA-Z0-9]+)\]'
+    pattern1 = r'\[[a-zA-Z0-9\s,]+\]'
     content = re.sub(pattern1, '', content)
     
     # Pattern 2: Remove image references like ![img-15.jpeg](img-15.jpeg)
@@ -21,6 +21,6 @@ def clean_markdown_document(input_file, output_file):
     print(f"Cleaning complete. Output saved to {output_file}")
 
 # Usage
-input_file = '/Users/rupakraut/Desktop/cc_LLM/cc_preprocess/central_configurations_corpus.md'
+input_file = '/Users/rupakraut/Desktop/cc_LLM/cc_preprocess/cleaned_central_configurations_corpus.md'
 output_file = 'cleaned_central_configurations_corpus.md'
 clean_markdown_document(input_file, output_file)
