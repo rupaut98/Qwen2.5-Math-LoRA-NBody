@@ -6,17 +6,27 @@ def clean_brackets_and_images(content):
     """
     Removes citation brackets and image references while preserving LaTeX expressions.
     """
-    # Step 1: Identify and temporarily preserve LaTeX expressions
-    latex_pattern = r'\[[^]]*?[\\\/\+\-\*\=\(\)\.\^\{\}][^]]*?\]'
+    # Step 1: Identify and protect LaTeX expressions
+    # First, protect full math expressions (including dollars)
+    dollar_math_pattern = r'(\$\$?[^$]+\$\$?|\\\[[^\]]+\\\]|\\\([^\)]+\\\))'
+    dollar_matches = re.findall(dollar_math_pattern, content, re.DOTALL)
+    
+    for i, expr in enumerate(dollar_matches):
+        placeholder = f"MATH_PLACEHOLDER_{i}"
+        content = content.replace(expr, placeholder)
+    
+    # Next, protect other LaTeX commands with brackets
+    latex_pattern = r'(\\[a-zA-Z]+(\{[^}]*\})*(\[[^\]]*\])*)'
     latex_expressions = re.findall(latex_pattern, content)
     
-    # Temporarily replace LaTeX expressions with placeholders
-    for i, expr in enumerate(latex_expressions):
+    for i, expr_tuple in enumerate(latex_expressions):
+        expr = expr_tuple[0]  # Get the full match
         placeholder = f"LATEX_PLACEHOLDER_{i}"
         content = content.replace(expr, placeholder)
     
-    # Step 2: Remove citation brackets containing alphanumeric chars, commas, spaces
-    citation_pattern = r'\[[a-zA-Z0-9\s,]+\]'
+    # Step 2: Remove citation brackets - now with more specific pattern
+    # Only match citations that look like [Author, Year] or [1] or [Author et al.]
+    citation_pattern = r'\[((?:\d+(?:,\s*\d+)*)|(?:[A-Za-z]+(?:\s+(?:et\s+al\.|and)\s+[A-Za-z]+)?(?:,\s*\d{4})?(?:;\s*[A-Za-z]+(?:,\s*\d{4})?)*)|(?:[A-Za-z]+\s*\d{4}(?:;\s*[A-Za-z]+\s*\d{4})*))\]'
     content = re.sub(citation_pattern, '', content)
     
     # Step 3: Remove image references
@@ -24,12 +34,18 @@ def clean_brackets_and_images(content):
     content = re.sub(image_pattern, '', content)
     
     # Step 4: Restore LaTeX expressions
-    for i, expr in enumerate(latex_expressions):
+    for i, expr_tuple in enumerate(latex_expressions):
         placeholder = f"LATEX_PLACEHOLDER_{i}"
+        content = content.replace(placeholder, expr_tuple[0])
+    
+    # Restore dollar math expressions
+    for i, expr in enumerate(dollar_matches):
+        placeholder = f"MATH_PLACEHOLDER_{i}"
         content = content.replace(placeholder, expr)
     
     return content
 
+# Rest of your code remains the same
 def remove_sections(content, sections_to_remove=None):
     """
     Removes specified sections from the markdown content.

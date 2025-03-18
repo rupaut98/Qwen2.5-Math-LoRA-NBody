@@ -1,4 +1,3 @@
-# Central Configurations Corpus
 
 # Central configurations of the 4 -body problem with masses $m_{1}=m_{2}>m_{3}=m_{4}=m>0$ and $m$ small 
 

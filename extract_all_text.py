@@ -4,19 +4,21 @@ import time
 from pathlib import Path
 from mistralai import Mistral
 import os
+from dotenv import load_dotenv
 
+load_dotenv()
 # Initialize the Mistral client with your API key
-api_key = os.getenv("MISTRAL_API_KEY") # You should use environment variables for sensitive keys in production
+api_key = os.getenv("MISTRAL_API_KEY") 
 client = Mistral(api_key=api_key)
 
 # Path to the directory containing PDF files
-pdf_directory = "/Users/rupakraut/Desktop/cc_LLM/cc_papers"
+pdf_directory = "/Users/rupakraut/Desktop/cc_LLM/cc_new_papers"
 
 # Create the directory if it doesn't exist
 os.makedirs(pdf_directory, exist_ok=True)
 
 # Output file for the combined corpus
-corpus_file = "central_configurations_corpus.md"
+corpus_file = "central_configurations_corpus_batch2.md"
 
 # Process all PDFs and extract text
 def process_pdfs_in_directory(directory, output_file):
