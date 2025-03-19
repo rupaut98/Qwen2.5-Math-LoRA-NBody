@@ -312,6 +312,54 @@ Based on the latest research, here's a comprehensive roadmap for enhancing your 
    - Apply quantization for efficiency
    - Create specialized inference pipeline
 
+## 9. Implementation Timeline
+
+### GPU Requirements
+16GB GPU should be sufficient for this entire project when properly optimized:
+
+- **Base Model:** Qwen2.5-Math-1.5B (1.5 billion parameters)
+- **Memory Requirement:** With optimization techniques like QLoRA, gradient checkpointing, and proper configuration, training can fit within 9-12GB VRAM
+
+#### Optimization Techniques:
+- QLoRA instead of standard LoRA (reduces memory by ~40%)
+- Gradient checkpointing with the "unsloth" method (saves ~90% VRAM)
+- Layer pruning with LoRA (can reduce GPU memory by up to 50%)
+
+### Training Timeline (2-Week Plan)
+
+**Week 1 (40-50 hours GPU usage)**
+- **Days 1-2: Setup and Data Preparation (5-10 hours GPU)**
+  - Testing model loading and memory configurations
+  - Data validation and preprocessing
+- **Days 3-5: Continued Pretraining - Phase 1 (30-40 hours GPU)**
+  - Training on theoretical foundations of central configurations
+  - Using optimized QLoRA configuration (r=8, alpha=16)
+  - Testing different target modules as per Section 4 of the guide
+- **Weekend: Preliminary Evaluation (5 hours GPU)**
+  - Basic testing of model improvements
+  - Comparison with baseline Qwen2.5-Math
+
+**Week 2 (30-40 hours GPU usage)**
+- **Days 1-3: Supervised Fine-Tuning (20-25 hours GPU)**
+  - SFT training using expert-level prompt-response pairs
+  - Implementation of domain-specific instruction following
+- **Days 4-5: Comprehensive Evaluation (10 hours GPU)**
+  - Testing on theoretical understanding of central configurations
+  - Evaluating computational abilities for n-body problems
+  - Assessing proof verification capabilities
+- **Days 6-7: Final Optimizations (5-10 hours GPU)**
+  - Adjustments based on evaluation results
+  - Merging adapters or using ensemble methods
+  - Quantization for deployment efficiency
+
+### Performance Expectations
+According to the data from search results, you can expect:
+- Training speed of approximately 700-3000 tokens/second depending on configuration
+- Total training time of 70-90 hours split across two weeks
+- Final checkpoint size of only 15-20MB compared to the full model size of several GB
+
+This timeline allows to utilize 80 hours of weekly 16 GB GPU allocation effectively while providing checkpoints for evaluation and adjustment. The parameter-efficient techniques described in the guide make this project feasible on consumer hardware rather than requiring expensive cloud instances like an H100 GPU.
+
 ## Conclusion
 
 Research clearly demonstrates that the combined approach of continued pretraining for domain knowledge acquisition followed by supervised fine-tuning for instruction following represents the state-of-the-art method for creating specialized language models[3][7][15]. The parameter-efficient techniques outlined above allow for developing a domain-specific reasoning agent for central configurations and n-body problems while maintaining computational efficiency.
