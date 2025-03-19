@@ -318,8 +318,6 @@ Research clearly demonstrates that the combined approach of continued pretrainin
 
 By implementing these research-backed enhancements, your Qwen2.5-Math model will be better equipped to understand the mathematical concepts underlying central configurations and effectively communicate about this specialized domain, providing valuable assistance for researchers and students in celestial mechanics and dynamical systems.
 
-## References[1] Sebastianraschka.com - Parameter-Efficient LLM Finetuning With Low-Rank Adaptation (LoRA)[2] arXiv:2410.08196 - MathCoder2: Better Math Reasoning from Continued Pretraining on Model-translated Mathematical Code[3] arXiv:2412.13337 - Unveiling the Secret Recipe: A Guide For Supervised Fine-Tuning Small LLMs[4] arXiv:2211.14820 - On the centered co-circular central configurations for the n-body problem[5] OpenReview - Parameter-Efficient Fine-Tuning of State Space Models[6] arXiv:2410.08196 - MathCoder2: Better Math Reasoning from Continued Pretraining[7] arXiv:2412.13337 - A Guide For Supervised Fine-Tuning Small LLMs[8] Scholarpedia.org - Central configurations[9] E2E Networks - A Step-by-Step Guide to Fine-Tuning the Mistral 7B LLM[10] arXiv:2305.08285 - Parameter-Efficient Fine-Tuning with Layer Pruning[11] OpenReview - Backtracking Mathematical Reasoning of Language Models[12] Aquila.usm.edu - Twisted Central Configurations of the Eight-Body problem[13] NVIDIA Developer Blog - Curating Custom Datasets for LLM Parameter-Efficient Fine-Tuning[14] Fields.utoronto.ca - On the central configurations of the N-body problem[15] arXiv:2408.13296 - The Ultimate Guide to Fine-Tuning LLMs from Basics to Breakthroughs
-
 Citations:
 [1] https://sebastianraschka.com/blog/2023/llm-finetuning-lora.html
 [2] https://arxiv.org/html/2410.08196v1
@@ -336,6 +334,3 @@ Citations:
 [13] https://developer.nvidia.com/blog/curating-custom-datasets-for-llm-parameter-efficient-fine-tuning-with-nvidia-nemo-curator/
 [14] https://www.fields.utoronto.ca/programs/scientific/12-13/Marsden/presentations/Llibre.pdf
 [15] https://arxiv.org/html/2408.13296v1
-
----
-Answer from Perplexity: pplx.ai/share
