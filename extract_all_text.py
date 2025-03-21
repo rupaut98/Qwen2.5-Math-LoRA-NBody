@@ -12,13 +12,13 @@ api_key = os.getenv("MISTRAL_API_KEY")
 client = Mistral(api_key=api_key)
 
 # Path to the directory containing PDF files
-pdf_directory = "/Users/rupakraut/Desktop/cc_LLM/cc_new_papers"
+pdf_directory = "/Users/rupakraut/Desktop/cc_LLM/zhifu_emailed"
 
 # Create the directory if it doesn't exist
 os.makedirs(pdf_directory, exist_ok=True)
 
 # Output file for the combined corpus
-corpus_file = "central_configurations_corpus_batch2.md"
+corpus_file = "central_configurations_corpus_batch3.md"
 
 # Process all PDFs and extract text
 def process_pdfs_in_directory(directory, output_file):
