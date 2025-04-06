@@ -8,21 +8,21 @@ def clean_brackets_and_images(content):
     """
     # Step 1: Identify and protect LaTeX expressions
     # First, protect full math expressions (including dollars)
-    dollar_math_pattern = r'(\$\$?[^$]+\$\$?|\\\[[^\]]+\\\]|\\\([^\)]+\\\))'
-    dollar_matches = re.findall(dollar_math_pattern, content, re.DOTALL)
+    # dollar_math_pattern = r'(\$\$?[^$]+\$\$?|\\\[[^\]]+\\\]|\\\([^\)]+\\\))'
+    # dollar_matches = re.findall(dollar_math_pattern, content, re.DOTALL)
     
-    for i, expr in enumerate(dollar_matches):
-        placeholder = f"MATH_PLACEHOLDER_{i}"
-        content = content.replace(expr, placeholder)
+    # for i, expr in enumerate(dollar_matches):
+    #     placeholder = f"MATH_PLACEHOLDER_{i}"
+    #     content = content.replace(expr, placeholder)
     
-    # Next, protect other LaTeX commands with brackets
-    latex_pattern = r'(\\[a-zA-Z]+(\{[^}]*\})*(\[[^\]]*\])*)'
-    latex_expressions = re.findall(latex_pattern, content)
+    # # Next, protect other LaTeX commands with brackets
+    # latex_pattern = r'(\\[a-zA-Z]+(\{[^}]*\})*(\[[^\]]*\])*)'
+    # latex_expressions = re.findall(latex_pattern, content)
     
-    for i, expr_tuple in enumerate(latex_expressions):
-        expr = expr_tuple[0]  # Get the full match
-        placeholder = f"LATEX_PLACEHOLDER_{i}"
-        content = content.replace(expr, placeholder)
+    # for i, expr_tuple in enumerate(latex_expressions):
+    #     expr = expr_tuple[0]  # Get the full match
+    #     placeholder = f"LATEX_PLACEHOLDER_{i}"
+    #     content = content.replace(expr, placeholder)
     
     # Step 2: Remove citation brackets - now with more specific pattern
     # Only match citations that look like [Author, Year] or [1] or [Author et al.]
@@ -34,59 +34,59 @@ def clean_brackets_and_images(content):
     content = re.sub(image_pattern, '', content)
     
     # Step 4: Restore LaTeX expressions
-    for i, expr_tuple in enumerate(latex_expressions):
-        placeholder = f"LATEX_PLACEHOLDER_{i}"
-        content = content.replace(placeholder, expr_tuple[0])
+    # for i, expr_tuple in enumerate(latex_expressions):
+    #     placeholder = f"LATEX_PLACEHOLDER_{i}"
+    #     content = content.replace(placeholder, expr_tuple[0])
     
-    # Restore dollar math expressions
-    for i, expr in enumerate(dollar_matches):
-        placeholder = f"MATH_PLACEHOLDER_{i}"
-        content = content.replace(placeholder, expr)
+    # # Restore dollar math expressions
+    # for i, expr in enumerate(dollar_matches):
+    #     placeholder = f"MATH_PLACEHOLDER_{i}"
+    #     content = content.replace(placeholder, expr)
     
     return content
 
-# Rest of your code remains the same
-def remove_sections(content, sections_to_remove=None):
-    """
-    Removes specified sections from the markdown content.
-    """
-    if sections_to_remove is None:
-        sections_to_remove = ['acknowledgements', 'acknowledgments', 'references', 'bibliography', 
-                             'works cited', 'citations', 'REFERENCES', 'BIBLIOGRAPHY']
+# # Rest of your code remains the same
+# def remove_sections(content, sections_to_remove=None):
+#     """
+#     Removes specified sections from the markdown content.
+#     """
+#     if sections_to_remove is None:
+#         sections_to_remove = ['acknowledgements', 'acknowledgments', 'references', 'bibliography', 
+#                              'works cited', 'citations', 'REFERENCES', 'BIBLIOGRAPHY']
     
-    # Process YAML front matter if present
-    if content.startswith('---'):
-        end_yaml = content.find('---', 3)
-        if end_yaml != -1:
-            yaml_content = content[0:end_yaml+3]
-            main_content = content[end_yaml+3:]
+#     # Process YAML front matter if present
+#     if content.startswith('---'):
+#         end_yaml = content.find('---', 3)
+#         if end_yaml != -1:
+#             yaml_content = content[0:end_yaml+3]
+#             main_content = content[end_yaml+3:]
             
-            # Remove acknowledgments from YAML
-            for section in sections_to_remove:
-                yaml_content = re.sub(rf'{section}:\s*\|.*?(?=\n\w+:|---)', 
-                                     '', yaml_content, flags=re.IGNORECASE|re.DOTALL)
+#             # Remove acknowledgments from YAML
+#             for section in sections_to_remove:
+#                 yaml_content = re.sub(rf'{section}:\s*\|.*?(?=\n\w+:|---)', 
+#                                      '', yaml_content, flags=re.IGNORECASE|re.DOTALL)
             
-            content = yaml_content + main_content
+#             content = yaml_content + main_content
     
-    # Create patterns for standard headers (# Header)
-    header_patterns = []
-    for section in sections_to_remove:
-        # Match headers like # Acknowledgments, ## References, etc.
-        pattern = rf'(?:\n|^)(#{1,6}\s+{section}[^\n]*\n(?:(?!#{1,6}\s+)[^\n]*\n)*)'
-        header_patterns.append(re.compile(pattern, re.IGNORECASE))
+#     # Create patterns for standard headers (# Header)
+#     header_patterns = []
+#     for section in sections_to_remove:
+#         # Match headers like # Acknowledgments, ## References, etc.
+#         pattern = rf'(?:\n|^)(#{1,6}\s+{section}[^\n]*\n(?:(?!#{1,6}\s+)[^\n]*\n)*)'
+#         header_patterns.append(re.compile(pattern, re.IGNORECASE))
     
-    # Create patterns for underlined headers (Header\n====== or Header\n-----)
-    underline_patterns = []
-    for section in sections_to_remove:
-        # Match headers like "Acknowledgments\n============"
-        pattern = rf'(?:\n|^)({section}[^\n]*\n[=\-]+\n(?:(?!#{1,6}\s+|[^\n]+\n[=\-]+\n)[^\n]*\n)*)'
-        underline_patterns.append(re.compile(pattern, re.IGNORECASE))
+#     # Create patterns for underlined headers (Header\n====== or Header\n-----)
+#     underline_patterns = []
+#     for section in sections_to_remove:
+#         # Match headers like "Acknowledgments\n============"
+#         pattern = rf'(?:\n|^)({section}[^\n]*\n[=\-]+\n(?:(?!#{1,6}\s+|[^\n]+\n[=\-]+\n)[^\n]*\n)*)'
+#         underline_patterns.append(re.compile(pattern, re.IGNORECASE))
     
-    # Remove headers and their content
-    for pattern in header_patterns + underline_patterns:
-        content = pattern.sub('', content)
+#     # Remove headers and their content
+#     for pattern in header_patterns + underline_patterns:
+#         content = pattern.sub('', content)
     
-    return content
+#     return content
 
 def process_markdown_document(input_file, output_file, clean_citations=True, 
                              remove_sections_list=None, skip_section_removal=False):
@@ -103,9 +103,9 @@ def process_markdown_document(input_file, output_file, clean_citations=True,
         print("Citation brackets and image references cleaned.")
     
     # Apply section removal
-    if not skip_section_removal:
-        content = remove_sections(content, remove_sections_list)
-        print(f"Sections removed: acknowledgments, references, etc.")
+    # if not skip_section_removal:
+    #     content = remove_sections(content, remove_sections_list)
+    #     print(f"Sections removed: acknowledgments, references, etc.")
     
     # Write the cleaned content
     with open(output_file, 'w', encoding='utf-8') as file:

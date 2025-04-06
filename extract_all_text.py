@@ -18,7 +18,7 @@ pdf_directory = "/Users/rupakraut/Desktop/cc_LLM/zhifu_emailed"
 os.makedirs(pdf_directory, exist_ok=True)
 
 # Output file for the combined corpus
-corpus_file = "central_configurations_corpus_batch3.md"
+corpus_file = "central_configurations_book_batch.md"
 
 # Process all PDFs and extract text
 def process_pdfs_in_directory(directory, output_file):
